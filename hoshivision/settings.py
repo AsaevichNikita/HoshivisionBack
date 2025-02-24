@@ -39,10 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'hoshivision.analysis',
-    'hoshivision.api',
-    'hoshivision.games',
-    'hoshivision.users',
+    'analysis',
+    'api',
+    'games',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -85,7 +85,7 @@ DATABASES = {
         'NAME': env('POSTGRES_DB', default='go_db'),
         'USER': env('POSTGRES_USER', default='go_user'),
         'PASSWORD': env('POSTGRES_PASSWORD', default='go_password'),
-        'HOST': env('POSTGRES_HOST', default='postgres'),  # Имя контейнера
+        'HOST': env('POSTGRES_HOST', default='localhost'),  # Имя контейнера
         'PORT': env('POSTGRES_PORT', default='5432'),
     }
 }
