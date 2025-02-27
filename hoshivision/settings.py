@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'analysis',
     'api',
     'games',
-    'users',
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -85,7 +85,7 @@ DATABASES = {
         'NAME': env('POSTGRES_DB', default='go_db'),
         'USER': env('POSTGRES_USER', default='go_user'),
         'PASSWORD': env('POSTGRES_PASSWORD', default='go_password'),
-        'HOST': env('POSTGRES_HOST', default='localhost'),  # Имя контейнера
+        'HOST': env('POSTGRES_HOST', default='postgres'),  # Имя контейнера
         'PORT': env('POSTGRES_PORT', default='5432'),
     }
 }
@@ -108,6 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
 
 
 # Internationalization
