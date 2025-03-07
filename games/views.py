@@ -1,9 +1,9 @@
 from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
-from .models import GoGame
+from .models import Game
 from .serializer import GoGameSerializer
 
-class GoGameViewSet(viewsets.ViewSet):
+class GameViewSet(viewsets.ViewSet):
     """
     ViewSet для работы с партиями в Го.
     Поддерживает GET, POST и DELETE.
@@ -12,15 +12,15 @@ class GoGameViewSet(viewsets.ViewSet):
 
     def list(self, request):
         """
-        GET /api/gogames/ - Получить список всех партий.
+        GET /api/games/ - Получить список всех партий.
         """
-        queryset = GoGame.objects.all()
+        queryset = Game.objects.all()
         serializer = GoGameSerializer(queryset, many=True)
         return Response(serializer.data)
 
     def create(self, request):
         """
-        POST /api/gogames/ - Создать новую партию.
+        POST /api/games/ - Создать новую партию.
         """
         serializer = GoGameSerializer(data=request.data)
         if serializer.is_valid():
@@ -30,11 +30,11 @@ class GoGameViewSet(viewsets.ViewSet):
 
     def destroy(self, request, pk=None):
         """
-        DELETE /api/gogames/{id}/ - Удалить партию по ID.
+        DELETE /api/games/{id}/ - Удалить партию по ID.
         """
         try:
-            game = GoGame.objects.get(pk=pk)
+            game = Game.objects.get(pk=pk)
             game.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
-        except GoGame.DoesNotExist:
+        except Game.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)

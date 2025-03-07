@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from .models import GoGame
+from .models import Game
 
 class GoGameSerializer(serializers.ModelSerializer):
     class Meta:
-        model = GoGame
+        model = Game
         fields = '__all__'
