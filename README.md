@@ -15,13 +15,15 @@
 Клонируйте репозиторий Django-приложением:
 
 git clone https://github.com/AsaevichNikita/HoshivisionBack.git
+
 cd HoshivisionBack
 
 ## Установка зависимостей
 Установите зависимости, указанные в файле requirements.txt:
 
 pip install -r requirements.txt
-Запуск приложения с помощью Docker
+
+# Запуск приложения с помощью Docker
 
 ## Соберите Docker-образ:
 
