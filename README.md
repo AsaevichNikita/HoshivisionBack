@@ -51,6 +51,7 @@ docker-compose exec web python manage.py migrate
 или если вы все разворачиваете без докера, то
 
 python manage.py makemigrations
+
 python manage.py migrate
 
 ## Создание суперпользователя
