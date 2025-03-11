@@ -1,4 +1,5 @@
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, status
+from rest_framework.response import Response
 from .models import Game
 from .serializer import GoGameSerializer
 
@@ -16,9 +17,9 @@ class GameListCreateView(generics.ListCreateAPIView):
         """
         serializer.save(user=self.request.user)
 
-class GameRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+class GameRetrieveDestroyView(generics.RetrieveDestroyAPIView):
     """
-    Представление для получения, обновления и удаления партии.
+    Представление для получения и удаления партии.
     """
     queryset = Game.objects.all()
     serializer_class = GoGameSerializer

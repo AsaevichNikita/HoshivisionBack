@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import GameListCreateView, GameRetrieveUpdateDestroyView
+from .views import GameListCreateView, GameRetrieveDestroyView
 
 urlpatterns = [
     # GET /games/ - Получить список всех партий.
@@ -7,8 +7,6 @@ urlpatterns = [
     path('', GameListCreateView.as_view(), name='game-list-create'),
 
     # GET /games/{id}/ - Получить детали партии по ID.
-    # PUT /games/{id}/ - Полное обновление партии по ID.
-    # PATCH /games/{id}/ - Частичное обновление партии по ID.
     # DELETE /games/{id}/ - Удалить партию по ID.
-    path('<int:pk>', GameRetrieveUpdateDestroyView.as_view(), name='game-retrieve-update-destroy'),
+    path('<int:pk>', GameRetrieveDestroyView.as_view(), name='game-retrieve-destroy'),
 ]
