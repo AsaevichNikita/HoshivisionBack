@@ -1,6 +1,6 @@
 from django.urls import path
-from . import views
+from . import api
+
 urlpatterns = [
-    path('', views.index, name='index'),  # Главная страница приложения
-    path('profile/', views.profile, name='profile'),  # Пример маршрута для профиля
+    path('user', api.UserListAPIView.as_view(), name='api_users'),
 ]
