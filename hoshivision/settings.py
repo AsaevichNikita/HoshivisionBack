@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'analysis',
-    'api',
     'games',
     'user',
 ]
@@ -63,7 +62,7 @@ ROOT_URLCONF = 'hoshivision.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'static')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
