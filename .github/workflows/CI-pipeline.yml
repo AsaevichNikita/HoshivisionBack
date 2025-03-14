@@ -1,0 +1,73 @@
+name: Django CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Запускать пайплайн при пуше в ветку main
+  pull_request:
+    branches:
+      - main  # Запускать пайплайн при создании PR в ветку main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.7.6'  # Укажите версию Python, которую использует ваш проект
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        run: |
+          python manage.py test
+
+  build-and-push:
+    runs-on: ubuntu-latest
+    needs: test  # Зависит от успешного завершения тестов
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+      - name: Build and push Django image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/django-app:latest
+
+      - name: Install Helm
+        run: |
+          curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+          chmod 700 get_helm.sh
+          ./get_helm.sh
+
+      - name: Checkout Helm chart repository
+        uses: actions/checkout@v3
+        with:
+          repository: AsaevichNikita/HoshivisionHelm  # Укажите ваш репозиторий с Helm-чартом
+          path: helm-chart  # Папка, куда будет клонирован Helm-чарт
+          token: ${{ secrets.GITHUB_TOKEN }}  # Используйте GITHUB_TOKEN для доступа к репозиторию
+
+      - name: Deploy Helm chart
+        run: |
+          helm upgrade --install hoshivision ./helm-chart \
+            --set image.repository=${{ secrets.DOCKER_HUB_USERNAME }}/django-app \
+            --set image.tag=latest
