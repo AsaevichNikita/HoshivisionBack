@@ -1,5 +1,5 @@
 #!/bin/sh
-'''exec' "/home/nicool/Рабочий стол/diplom/HoshivisionBack/.venv/bin/python3" "$0" "$@"
+'''exec' "/home/nicool/Рабочий стол/diplom/Web/HoshivisionBack/.venv/bin/python" "$0" "$@"
 ' '''
 # -*- coding: utf-8 -*-
 import re
